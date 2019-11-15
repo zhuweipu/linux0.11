@@ -219,11 +219,12 @@ else
   XTERM_STATUS := 1
   XTERM_CMD    := null
 endif
-ifeq ($(XTERM_STATUS), 0)
-  DEBUG_CMD = $(XTERM_CMD)
-else
-  DEBUG_CMD = $(Q)echo "\nLOG: Please run this in another terminal:\n\n    " $(GDB_CMD) "\n"
-endif
+
+# ifeq ($(XTERM_STATUS), 0)
+DEBUG_CMD = $(XTERM_CMD)
+# else
+#  DEBUG_CMD = $(Q)echo "\nLOG: Please run this in another terminal:\n\n    " $(GDB_CMD) "\n"
+# endif
 
 gdbinit:
 	$(Q)echo "add-auto-load-safe-path .gdbinit" > $(HOME)/.gdbinit
@@ -238,7 +239,7 @@ endif
 
 debug: ramdisk-boot Image gdbinit
 	$(SETROOTDEV_CMD_RAM)
-	$(VM_CMD_FDB)$(VM_DBG)$(VM_DISPLAY) &
+	$(VM_CMD)$(VM_DBG)$(VM_DISPLAY) &
 	$(DEBUG_CMD)
 
 debug-fd: Image flp gdbinit
@@ -248,5 +249,5 @@ debug-fd: Image flp gdbinit
 
 debug-hd: Image hda gdbinit
 	$(SETROOTDEV_CMD_HDA)
-	$(VM_CMD_FDB)$(VM_DBG)$(VM_DISPLAY) &
+	$(VM_CMD_HDA)$(VM_DBG)$(VM_DISPLAY) &
 	$(DEBUG_CMD)

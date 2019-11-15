@@ -29,7 +29,7 @@ else
   XTERM := null
 endif
 
-  GDB ?= gdb
+GDB ?= gdb
 
 # Qemu
 QEMU_PATH =
@@ -56,6 +56,8 @@ FLP_IMG = rootimage-0.11
 RAM_IMG = rootram.img
 
 # Ramdisk start offset and size, in Kb
+# Use 2MB as Ramdisk. old  is 256Kb 
+# 2Mb for ramfs is not ok
 RAMDISK_START ?= 256
 
 # Tool for call graph generation
